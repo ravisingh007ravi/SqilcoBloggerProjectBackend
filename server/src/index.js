@@ -1,16 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const route = require('./routes/route.js');
-// const dotenv = require('dotenv');
-// const cors = require('cors');
-// require('dotenv').config()
+const route = require('./routes/route.js');
 
 const app = express();
 
-// app.use(cors());
 app.use(express.json());
 
-const DB = `mongodb+srv://DeeptirthaMukherjee:QYKI3k8QSKC4I7FZ@cluster1.khatgm1.mongodb.net/BlogsMERN=true&w=majority`;
+const DB = `mongodb+srv://1901650149033:4xCGydfmPgCIPUFc@bloggerproject.blenntu.mongodb.net/`;
 const port = process.env.PORT || 5000;
 
 
@@ -20,6 +16,6 @@ mongoose.connect(DB)
     .catch((err) => console.log(err));
 
 
-// app.use('/', route);
+app.use('/', route);
 
 app.listen(port, () => console.log(`Server is Running Succesfully ${port}💕`));
