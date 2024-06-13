@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const route = require('./routes/route.js');
+const cors = require('cors')
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
-const DB = `mongodb+srv://1901650149033:4xCGydfmPgCIPUFc@bloggerproject.blenntu.mongodb.net/`;
+const DB = `mongodb+srv://1901650149033:4xCGydfmPgCIPUFc@bloggerproject.blenntu.mongodb.net/sample_mflix`;
 const port = process.env.PORT || 5000;
 
 
