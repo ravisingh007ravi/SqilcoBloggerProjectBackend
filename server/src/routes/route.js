@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-const {createUser, getAllUserData} = require('../controller/userController');
+const {createUser, getAllUserData, login} = require('../controller/userController');
 
 //<-------------This API used for Create User-------------------------------------------->//
 router.post('/createUser',createUser)
