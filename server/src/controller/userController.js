@@ -1,6 +1,8 @@
 const userModel = require('../models/userModels');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const dotENV = require('dotenv');
+dotENV.config();
 
 
 exports.createUser = async (req, res) => {
@@ -50,7 +52,7 @@ exports.createUser = async (req, res) => {
 
 exports.getAllUserData = async(req, res)=>{
     try{
-        const getdata = await userModel.find().sort({_id:-1});
+        const getdata = await userModel.find()
         res.status(200).send({ status: true, msg: "Successfully get All Data", data: getdata })
     }
     catch (error) {
@@ -82,16 +84,14 @@ exports.login = async (req, res) => {
 
         let token = jwt.sign(
             {
-                authorId: loggedAuthor._id.toString(),
-                batch: "SqilcoFirstBatch",
-                project: "Blog-Project"
+                UserId: loggedAuthor._id.toString(),
             },
-            'This_is_a_SecretKey', { expiresIn: '12h' }
+            process.env.AcessSecretKey, { expiresIn: '12h' }
         )
 
         const UserId = loggedAuthor['_id'];
 
-        return res.status(201).send({ msg: "User logged in successfully!", loggedAuthor, token, UserId })
+        return res.status(201).send({ msg: "User logged in successfully!", token, UserId })
     } catch (error) {
         return res.status(500).send({ msg: error.message })
     }
