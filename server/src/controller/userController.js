@@ -39,7 +39,6 @@ exports.createUser = async (req, res) => {
        
         let checkpass= await bcrypt.hash(password, 10);
         user.password = checkpass;
-        console.log(checkpass)
 
         let userData = await userModel.create(user);
         res.status(201).send({ status: true, msg: "User created successfully", data: userData })

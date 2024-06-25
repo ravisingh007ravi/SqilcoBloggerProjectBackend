@@ -7,7 +7,7 @@ exports.createBlog = async (req, res) => {
 
     try {
         const Blog = req.body
-
+        
         if (Object.keys(Blog).length == 0) {
             return res.status(400).send({ status: false, msg: "Invalid request Please provide Blogs details" });
         }

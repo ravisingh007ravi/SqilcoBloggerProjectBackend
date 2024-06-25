@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const { createUser, getAllUserData, login } = require('../controller/userController');
 const {authenticate} = require('../middleware/auth.js');
-const {createBlog} = require('../controller/bloggerController.js')
+const {createBlog} = require('../controller/bloggerController.js');
 
 //<-------------This API used for Create User-------------------------------------------->//
 router.post('/createUser', createUser);
@@ -14,13 +14,12 @@ router.post('/UserLogin', login);
 router.post('/createBlog',authenticate, createBlog);
 
 
-
 router.all("/*", (req, res) => {
-    res.status(400).send({ status: false, message: "Url is not Correct" })
-}
-)
+    res.status(400).send({ status: false, message: "Url is not Correct" })})
 
 module.exports = router;
+
+
 
 
 
