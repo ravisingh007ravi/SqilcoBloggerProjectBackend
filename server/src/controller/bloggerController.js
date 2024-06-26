@@ -29,3 +29,44 @@ exports.createBlog = async (req, res) => {
         return res.status(500).send({ msg: error.message })
     }
 }
+
+exports.getAllBlogsData = async (req, res) => {
+
+    try {
+        const filter = req.params;
+        
+        if (filter.category == 'AllBlogs') {
+            const AllData = await blogModel.find({isDeleted:false}).sort({_id:-1});
+            return res.status(200).send({ msg: AllData })
+        }
+        else {
+            const getData = await blogModel.find({ categories: filter.category, isDeleted:false }).sort({_id:-1});
+            if (!getData) return res.status(404).send({ msg: " Not blogs Presents" });
+            return res.status(200).send({ msg: getData })
+        }
+    }
+    catch (error) { return res.status(500).send({ msg: error.message }) }
+}
+
+//<----------------This API used for Fetch Blogs of Logged in Author----------->//
+exports.getBlogsData = async (req, res) => {
+    try {
+        let id = req.params.authorId;
+
+        if (!id) return res.status(400).send({ status: false, msg: "id is required" })
+
+        // let isValid = mongoose.Types.ObjectId.isValid(id)
+        // if (!isValid) return res.status(400).send({ msg: "enter valid objectID" })
+
+        let data = await blogModel.find({ _id: id, isDeleted:false })
+        
+        if (Object.keys(data).length == 0) {
+            return res.status(400).send({ status: false, msg: "No Blogger Present in DataBase" });
+        }
+        return res.status(200).send({ msg: data })
+
+    }
+    catch (error) {
+        return res.status(500).send({ msg: error.message })
+    }
+}
