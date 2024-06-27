@@ -34,7 +34,7 @@ exports.getAllBlogsData = async (req, res) => {
 
     try {
         const filter = req.params;
-        
+    
         if (filter.category == 'AllBlogs') {
             const AllData = await blogModel.find({isDeleted:false}).sort({_id:-1});
             return res.status(200).send({ msg: AllData })
@@ -64,6 +64,86 @@ exports.getBlogsData = async (req, res) => {
             return res.status(400).send({ status: false, msg: "No Blogger Present in DataBase" });
         }
         return res.status(200).send({ msg: data })
+
+    }
+    catch (error) {
+        return res.status(500).send({ msg: error.message })
+    }
+}
+
+
+exports.updateBlog = async function (req, res) {
+    try {
+
+        const Blogdata = req.body;
+
+        const {picture, title, description,} =Blogdata;
+
+        let inputId = req.params.blogId;
+
+        let data = await blogModel.findOne({ _id: inputId })
+
+        
+        if (!data) return res.status(400).send({ msg: "Blog is Not Presents" })
+
+        let blogs = await blogModel.findOneAndUpdate({ _id: inputId },
+            {
+                $set: {picture:picture, title: title, description: description }     
+            },
+            { new: true })
+            
+        return res.status(200).send({ msg: blogs })
+    }
+    catch (error) {
+        return res.status(500).send({ msg: error.message })
+    }
+}
+
+
+exports.updateBlog = async function (req, res) {
+    try {
+
+        const Blogdata = req.body;
+
+        const {picture, title, description,} =Blogdata;
+
+        let inputId = req.params.blogId;
+
+        let data = await blogModel.findOne({ _id: inputId })
+
+        
+        if (!data) return res.status(400).send({ msg: "Blog is Not Presents" })
+
+        let blogs = await blogModel.findOneAndUpdate({ _id: inputId },
+            {
+                $set: {picture:picture, title: title, description: description }     
+            },
+            { new: true })
+            
+        return res.status(200).send({ msg: blogs })
+    }
+    catch (error) {
+        return res.status(500).send({ msg: error.message })
+    }
+}
+
+
+
+exports.deleteBlog = async function (req, res) {
+    try {
+
+
+        let inputId = req.params.blogId
+
+        let date = new Date();
+
+        let data = await blogModel.findOneAndUpdate({ _id: inputId },
+            { $set: { isDeleted: true, deletedAt: date } },
+            { new: true })
+            
+        if (!data) return res.status(404).send({ msg: "no data found" })
+
+        return res.status(200).send({ status: true, msg: data })
 
     }
     catch (error) {
