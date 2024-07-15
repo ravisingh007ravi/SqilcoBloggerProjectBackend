@@ -1,11 +1,11 @@
-import TrainVideos from '../Videos/2023-04-24 20-54-54.mp4';
+import imgBG from '../images/4.jpg'
 import React from 'react'
 
 function Home() {
   return (
     <div>
       <div className='h-screen w-full'>
-      <iframe class=" w-full aspect-video hover:aspect-square" src={TrainVideos} title='BGVideos'/>
+        <img className='h-full w-full object-cover' src={imgBG} alt="bodyImg" />
     </div>
     </div>
   )

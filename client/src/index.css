@@ -10,3 +10,7 @@ body{
 .ravi{
     font-family: "Playwrite CU", cursive;
 }
+
+.SignupImage{
+    background-image: url(./images/4.jpg);
+}

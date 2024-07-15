@@ -16,26 +16,26 @@ exports.createUser = async (req, res) => {
 
  
         if (Object.keys(user).length == 0) {
-            return res.status(400).send({ status: false, message: "Body is empty can't craeate data" })
+            return res.status(400).send({ status: false, msg: "Body is empty can't craeate data" })
         }
-        if (!name) return res.status(400).send({ status: false, message: "Pls Provided Name" })
+        if (!name) return res.status(400).send({ status: false, msg: "Pls Provided Name" })
         if (name.trim() == 0 || validName.test(name) == false) {
-            return res.status(400).send({ status: false, message: "Enter a valid Name" })
+            return res.status(400).send({ status: false, msg: "Enter a valid Name" })
         }
 
-        if (!email) return res.status(400).send({ status: false, message: "Pls Provided emailId" })
+        if (!email) return res.status(400).send({ status: false, msg: "Pls Provided emailId" })
         if (email.trim() == 0 || validEmail.test(email) == false) {
-            return res.status(400).send({ status: false, message: "Enter a valid EmailId" })
+            return res.status(400).send({ status: false, msg: "Enter a valid EmailId" })
         }
        
 
-        if (!password) return res.status(400).send({ status: false, message: "Pls Provided Name" })
+        if (!password) return res.status(400).send({ status: false, msg: "Pls Provided Name" })
         if (password.trim() == 0 || validPassword.test(password) == false) {
-            return res.status(400).send({ status: false, message: "Enter a valid Password Using" })
+            return res.status(400).send({ status: false, msg: "Enter a valid Password Using" })
         }
 
         let oldUser = await userModel.findOne({ email: email })
-        if (oldUser) { return res.status(400).send({ status: false, message: "User already exist with this Email Id" }) }
+        if (oldUser) { return res.status(400).send({ status: false, msg: "User already exist with this Email Id" }) }
        
         let checkpass= await bcrypt.hash(password, 10);
         user.password = checkpass;
